@@ -7,8 +7,7 @@
 {"name":"Finland","group":"C","value":18,"colname":"level3"},
 {"name":"Iceland","group":"C","value":18,"colname":"level3"},
 {"name":"Norway","group":"C","value":18,"colname":"level3"},
-{"name":"Sweden","group":"C","value":18,"colname":"level3"}],
-"colname":"level2"},
+{"name":"Sweden","group":"C","value":18,"colname":"level3"}],"colname":"level2"},
 {"name":"Eastern Europe","children":[
 {"name":"Belarus","group":"C","value":14,"colname":"level3"},
 {"name":"Bulgaria","group":"A","value":11,"colname":"level3"},
@@ -19,9 +18,7 @@
 {"name":"Romania","group":"B","value":16,"colname":"level3"},
 {"name":"Russia","group":"B","value":16,"colname":"level3"},
 {"name":"Slovakia","group":"B","value":16,"colname":"level3"},
-{"name":"Ukraine","group":"B","value":16,"colname":"level3"}
-],
-"colname":"level2"},
+{"name":"Ukraine","group":"B","value":16,"colname":"level3"}],"colname":"level2"},
 {"name":"Southern Europe","children":[
 {"name":"Greece","group":"B","value":10,"colname":"level3"},
 {"name":"Malta","group":"A","value":13,"colname":"level3"},
@@ -30,8 +27,7 @@
 {"name":"Italy","group":"D","value":16,"colname":"level3"},
 {"name":"Turkey","group":"D","value":16,"colname":"level3"},
 {"name":"Cyprus","group":"D","value":16,"colname":"level3"},
-{"name":"Portugal","group":"D","value":28,"colname":"level3"}],
-"colname":"level2"}],
+{"name":"Portugal","group":"D","value":28,"colname":"level3"}],"colname":"level2"},
 {"name":"Western Europe","children":[
 {"name":"Austria","group":"B","value":10,"colname":"level3"},
 {"name":"Belgium","group":"A","value":13,"colname":"level3"},
@@ -42,7 +38,5 @@
 {"name":"Luxembourg","group":"D","value":28,"colname":"level3"},
 {"name":"Monaco","group":"D","value":28,"colname":"level3"},
 {"name":"Netherlands","group":"D","value":28,"colname":"level3"},
-{"name":"United Kingdom","group":"D","value":28,"colname":"level3"},
-],
-"colname":"level2"}],
+{"name":"United Kingdom","group":"D","value":28,"colname":"level3"}],"colname":"level2"}],
 "name":"CEO"}
