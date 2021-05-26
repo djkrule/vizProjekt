@@ -4,7 +4,7 @@
 
 <!-- Load d3.js -->
 <script src="https://d3js.org/d3.v4.js"></script>
-
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 <!-- Create a div where the graph will take place -->
 <div id="my_dataviz"></div>
 
@@ -12,9 +12,9 @@
 <script>
 
 // set the dimensions and margins of the graph
-var margin = {top: 10, right: 10, bottom: 10, left: 10},
-  width = 445 - margin.left - margin.right,
-  height = 445 - margin.top - margin.bottom;
+var margin = {top: 50, right: 10, bottom: 10, left: 10},
+  width = 945 - margin.left - margin.right,
+  height = 945 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
 var svg = d3.select("#my_dataviz")
@@ -33,8 +33,19 @@ d3.json("euroPopulation.json", function(data) {
   // Then d3.treemap computes the position of each element of the hierarchy
   d3.treemap()
     .size([width, height])
-    .padding(2)
-    (root)
+    .paddingTop(30)
+	.paddingRight(5)
+
+    (root);
+	
+  //Colors
+  var color = d3.scaleOrdinal()
+    .domain(["boss1", "boss2", "boss3","boss4"])
+    .range([ "#3369FF", "#D91414", "#08A80E", "#FF5733"]);
+  //Opacity
+  var opacity = d3.scaleLinear()
+    .domain([10, 150])
+    .range([.5,1]);
 
   // use this information to add rectangles:
   svg
@@ -47,7 +58,8 @@ d3.json("euroPopulation.json", function(data) {
       .attr('width', function (d) { return d.x1 - d.x0; })
       .attr('height', function (d) { return d.y1 - d.y0; })
       .style("stroke", "black")
-      .style("fill", "slateblue")
+      .style("fill", function(d){ return color(d.parent.data.name)} )
+      .style("opacity", function(d){ return opacity(d.data.value)});
 
   // and to add the text labels
   svg
@@ -55,10 +67,32 @@ d3.json("euroPopulation.json", function(data) {
     .data(root.leaves())
     .enter()
     .append("text")
-      .attr("x", function(d){ return d.x0+5})    // +10 to adjust position (more right)
-      .attr("y", function(d){ return d.y0+20})    // +20 to adjust position (lower)
+      .attr("x", function(d){ return d.x0+5})
+      .attr("y", function(d){ return d.y0+20})
       .text(function(d){ return d.data.name })
-      .attr("font-size", "15px")
-      .attr("fill", "white")
+      .attr("font-size", "12px")
+      .attr("fill", "white");
+	  
+      svg
+    .selectAll("vals")
+    .data(root.leaves())
+    .enter()
+    .append("text")
+      .attr("x", function(d){ return d.x0+5})
+      .attr("y", function(d){ return d.y0+35})
+      .text(function(d){ return d.data.value })
+      .attr("font-size", "11px")
+      .attr("fill", "white");
+
+    svg
+    .selectAll("titles")
+    .data(root.descendants().filter(function(d){return d.depth==1}))
+    .enter()
+    .append("text")
+      .attr("x", function(d){ return d.x0})
+      .attr("y", function(d){ return d.y0+20})
+      .text(function(d){ return d.data.name })
+      .attr("font-size", "19px")
+      .attr("fill",  function(d){ return color(d.data.name)});
 })
 </script>
