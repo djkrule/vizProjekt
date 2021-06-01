@@ -8,14 +8,16 @@
 <!-- Create a div where the graph will take place -->
 
 <body>
-  <div id="my_dataviz" style="width: 1450px; height: 800px; display: inline-block;">
+  <div id="my_dataviz" style="width: 1350px; height: 800px; display: inline-block;">
     <script>
       // set the dimensions and margins of the graph
       var margin = { top: 20, right: 10, bottom: 10, left: 10 },
-        width = 1450 - margin.left - margin.right,
+        width = 1350 - margin.left - margin.right,
         height = 800 - margin.top - margin.bottom;
 
       // append the svg object to the body of the page
+      // NAPRAVITI UPDATE S OBZIROM NA KOJI SE STUPAC STISNE
+      //pogledaj na d3.js graphs
       var svg = d3.select("#my_dataviz")
         .append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -82,7 +84,7 @@
           })
           .on("click", function (d) {
             console.log(d.data["fullName"]);
-            update("var2")
+            update(d.data["fullName"])
           })
           .on("mouseover", function (d) {
             d3.select(this)
@@ -148,7 +150,7 @@
     <script>
 
       // set the dimensions and margins of the graph
-      var margin1 = { top: 200, right: 0, bottom: 100, left: 0 },
+      var margin1 = { top: 200, right: 0, bottom: 100, left: 20 },
         width1 = 400 - margin1.left - margin1.right,
         height1 = 800 - margin1.top - margin1.bottom;
 
@@ -180,9 +182,11 @@
 
         // Parse the Data
         d3.csv("country.txt", function (data) {
-
           // X axis
-          x.domain(data.map(function (d) { return d.group; }))
+          x.domain(data.map(function (d) {
+            console.log(d);
+            return d.group;
+          }))
           xAxis.transition().duration(1000).call(d3.axisBottom(x))
 
           // Add Y axis
@@ -197,6 +201,10 @@
           u
             .enter()
             .append("rect")
+            .on("click", function (d) {
+              console.log(d.group)
+
+            })
             .merge(u)
             .transition()
             .duration(1000)
@@ -204,12 +212,14 @@
             .attr("y", function (d) { return y(d[selectedVar]); })
             .attr("width", x.bandwidth())
             .attr("height", function (d) { return height1 - y(d[selectedVar]); })
-            .attr("fill", "#aaaaaa")
+            .style("fill", function (d) {
+              return "#016FB9";
+            })
         })
       }
 
       // Initialize plot
-      update('var1')
+      update('Europe')
 
     </script>
   </div>
