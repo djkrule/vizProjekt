@@ -14,8 +14,10 @@
   }
 
   h1,
-  h2 {
+  h2,
+  h4 {
     color: #343a40;
+    margin: 0px;
     font-family: sans-serif;
   }
 
@@ -26,10 +28,10 @@
 </style>
 
 <body>
-  <div id="title">
-    <h1 style="margin: 10px;">Europe Population Density</h1>
+  <div id="title" style="margin: 10px;">
+    <h1>Europe Population Density</h1>
   </div>
-  <div id="europeTreeMap" style="width: 1350px; height: 800px; display: inline-block;">
+  <div id="europeTreeMap" style="width: 1350px; height: 750px; display: inline-block;">
     <script>
       var opacityNorth = d3.scaleLinear()
         .domain([0, 60])
@@ -95,9 +97,9 @@
 
       'use strict';
 
-      const margin = { top: 0, right: 10, bottom: 10, left: 10 },
+      const margin = { top: 0, right: 0, bottom: 20, left: 10 },
         width = 1350 - margin.left - margin.right,
-        height = 800 - margin.top - margin.bottom;
+        height = 750 - margin.top - margin.bottom;
 
       var mapColors = d3.scaleOrdinal()
         .domain(["north", "east", "south", "west"])
@@ -204,7 +206,7 @@
       });
     </script>
   </div>
-  <div id="barchart" style="width: 460px; height:800px; display: inline-flex;">
+  <div id="barchart" style="width: 460px; height:750px; display: inline-flex;">
     <script>
       //index = 0 is population density, index from 1-6 are age groups
       var index = 0;
@@ -212,7 +214,7 @@
       // set the dimensions and margins of the graph
       var margin1 = { top: 0, right: 0, bottom: 50, left: 50 },
         width1 = 400 - margin1.left - margin1.right,
-        height1 = 800 - margin1.top - margin1.bottom;
+        height1 = 750 - margin1.top - margin1.bottom;
 
       // append the svg object to the body of the page
       var svg1 = d3.select("#barchart")
@@ -296,8 +298,17 @@
     <h2 style="display: inline-block; margin-right: 10px;">Southern Europe</h2>
     <div style="width: 20px; height: 20px; background-color:  #198A46; border-radius: 50px; display: inline-block;">
     </div>
-    <h2 style="display: inline-block;">Western Europe</h2>
+    <h2 style="display: inline-block; margin-bottom: 10px;">Western Europe</h2><br>
   </div>
+  </div>
+  <div id="info" style="margin-left: 10px; margin-top: 20px;">
+    <h4 style="display: inline;">*Country values are shown in Persons per square kilometre (p/km2)
+    </h4><br>
+    <h4 style="display: inline;">**By clicking on country, barchart will refresh with that country age groups
+    </h4><br>
+    <h4 style="display: inline;">***Hovering over chart bars will show country values for each age
+      group in percentages (%)
+    </h4>
 
 
 
