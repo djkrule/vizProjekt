@@ -6,14 +6,29 @@
   .node {
     border: solid 1px black;
     font: 14px sans-serif;
+    font-weight: bold;
     color: white;
     overflow: hidden;
     position: absolute;
     text-indent: 2px;
   }
+
+  h1,
+  h2 {
+    color: #343a40;
+    font-family: sans-serif;
+  }
+
+  text {
+    font-size: 14px;
+    font-weight: bold;
+  }
 </style>
 
 <body>
+  <div id="title">
+    <h1 style="margin: 10px;">Europe Population Density</h1>
+  </div>
   <div id="europeTreeMap" style="width: 1350px; height: 800px; display: inline-block;">
     <script>
       var opacityNorth = d3.scaleLinear()
@@ -31,7 +46,7 @@
 
       var opacityAge14 = d3.scaleLinear()
         .domain([13.2, 24])
-        .range([.65, 1]);
+        .range([.75, 1]);
       var opacityAge24 = d3.scaleLinear()
         .domain([8.9, 18])
         .range([.75, 1]);
@@ -48,7 +63,7 @@
         .domain([1.5, 7])
         .range([.50, 1]);
 
-      function getOpacity(d) {
+      function getCountryOpacity(d) {
         if (d.parent.data.name == "Northern Europe") {
           return opacityNorth(d.data.value[index]);
         }
@@ -80,11 +95,11 @@
 
       'use strict';
 
-      const margin = { top: 40, right: 10, bottom: 10, left: 10 },
+      const margin = { top: 0, right: 10, bottom: 10, left: 10 },
         width = 1350 - margin.left - margin.right,
         height = 800 - margin.top - margin.bottom;
 
-      var color = d3.scaleOrdinal()
+      var mapColors = d3.scaleOrdinal()
         .domain(["north", "east", "south", "west"])
         .range(["#016FB9", "#D91414", "#E57A08", "#198A46"]);
 
@@ -117,14 +132,12 @@
           .style("top", (d) => d.y0 + "px")
           .style("width", (d) => Math.max(0, d.x1 - d.x0 - 1) + "px")
           .style("height", (d) => Math.max(0, d.y1 - d.y0 - 1) + "px")
-          .style("background", (d) => color(d.parent.data.name))
+          .style("background", (d) => mapColors(d.parent.data.name))
           .style("opacity", function (d) {
-            console.log(d.parent.data.name)
-            return getOpacity(d)
+            return getCountryOpacity(d)
           })
           .text((d) => d.data.name + " " + d.data.value[index])
           .on("click", function (d) {
-            console.log(d.data["fullName"]);
             update(d.data["fullName"])
           })
           .on("mouseover", function (d) {
@@ -132,10 +145,9 @@
               .style("opacity", 1)
           })
           .on("mouseout", function (d) {
-            d3.select(this).style("fill", function (d) { return color(d.parent.data.name) })
+            d3.select(this).style("fill", function (d) { return mapColors(d.parent.data.name) })
               .style("opacity", function (d) {
-                console.log(d.parent.data.name)
-                return getOpacity(d)
+                return getCountryOpacity(d)
               })
           });
 
@@ -160,7 +172,6 @@
             .style("width", (d) => Math.max(0, d.x1 - d.x0 - 1) + "px")
             .style("height", (d) => Math.max(0, d.y1 - d.y0 - 1) + "px")
             .style("opacity", function (d) {
-              console.log(d.parent.data.name)
               return getAgeOpacity(d)
             })
             .text((d) => d.data.name + " " + d.data.value[index])
@@ -186,46 +197,20 @@
             .style("width", (d) => Math.max(0, d.x1 - d.x0 - 1) + "px")
             .style("height", (d) => Math.max(0, d.y1 - d.y0 - 1) + "px")
             .style("opacity", function (d) {
-              console.log(d.parent.data.name)
-              return getOpacity(d)
+              return getCountryOpacity(d)
             })
+            .text((d) => d.data.name + " " + d.data.value[index])
         });
       });
     </script>
   </div>
-  <div id="legend">
-    <script>
-      //Create SVG element
-      //4 kruga pored njih imena podjela i tjt
-      var svg2 = d3.select("#legend")
-        .append("svg")
-        .attr("width", 1000)
-        .attr("height", 300);
-      //Create and append rectangle element
-      svg2.append("circle")
-        .style("fill", color("west"))
-        .attr("r", 40)
-        .attr("cx", 20)
-        .attr("cy", 20);
-      svg2.append("circle")
-        .style("fill", color("south"))
-        .attr("r", 40)
-        .attr("cx", 20)
-        .attr("cy", 20);
-      svg2.append("circle")
-        .style("fill", color("north"))
-        .attr("r", 40)
-        .attr("cx", 10)
-        .attr("cy", 10);
-    </script>
-  </div>
-  <div id="barchart" style="width: 460px; height:800px;">
+  <div id="barchart" style="width: 460px; height:800px; display: inline-flex;">
     <script>
       //index = 0 is population density, index from 1-6 are age groups
       var index = 0;
 
       // set the dimensions and margins of the graph
-      var margin1 = { top: 200, right: 0, bottom: 100, left: 20 },
+      var margin1 = { top: 0, right: 0, bottom: 50, left: 50 },
         width1 = 400 - margin1.left - margin1.right,
         height1 = 800 - margin1.top - margin1.bottom;
 
@@ -277,8 +262,6 @@
             .attr("id", function (d, i) { return "stupac" + i })
             .on("mouseover", function (d, i) {
               index = i + 1;
-              console.log(d.group)
-              console.log("novi index je: " + index)
             }).on("mouseout", function (d) { index = 0 })
             .transition()
             .duration(1000)
@@ -287,10 +270,10 @@
             .attr("width", x.bandwidth())
             .attr("height", function (d) { return height1 - y(d[selectedVar]); })
             .style("fill", function (d, i) {
-              var color1 = d3.scaleOrdinal()
+              var barchartColors = d3.scaleOrdinal()
                 .domain([0, 1, 2, 3, 4, 5])
-                .range(["#c6f2fa", "#91e5f6", "#84d2f6", "#59a5d8", "#386fa4", "#133c55"]);
-              return color1(i);
+                .range(["#277da1", "#43aa8b", "#90be6d", "#f9c74f", "#f9844a", "#f94144"]);
+              return barchartColors(i);
 
             })
         })
@@ -301,5 +284,22 @@
 
     </script>
   </div>
+  <div id="legend" style="margin-left: 10px;">
+    <div style="width: 20px; height: 20px; background-color: #016FB9; border-radius: 50px; display: inline-block;">
+    </div>
+    <h2 style="display: inline-block; margin-right: 10px;">Northern Europe</h2>
+    <div style="width: 20px; height: 20px; background-color: #D91414; border-radius: 50px; display: inline-block;">
+    </div>
+    <h2 style="display: inline-block; margin-right: 10px;">Eastern Europe</h2>
+    <div style="width: 20px; height: 20px; background-color: #E57A08; border-radius: 50px; display: inline-block;">
+    </div>
+    <h2 style="display: inline-block; margin-right: 10px;">Southern Europe</h2>
+    <div style="width: 20px; height: 20px; background-color:  #198A46; border-radius: 50px; display: inline-block;">
+    </div>
+    <h2 style="display: inline-block;">Western Europe</h2>
+  </div>
+
+
+
 
 </body>
