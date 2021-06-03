@@ -31,8 +31,9 @@
   <div id="title" style="margin: 10px;">
     <h1>Europe Population Density</h1>
   </div>
-  <div id="europeTreeMap" style="width: 1350px; height: 750px; display: inline-block;">
+  <div id="europeTreeMap" style="width: 1100px; height: 600px; display: inline-block;">
     <script>
+      //promjeni visinu charta jer se ne vidi u cijelosti
       var opacityNorth = d3.scaleLinear()
         .domain([0, 60])
         .range([.55, .9]);
@@ -98,8 +99,8 @@
       'use strict';
 
       const margin = { top: 0, right: 0, bottom: 20, left: 10 },
-        width = 1350 - margin.left - margin.right,
-        height = 750 - margin.top - margin.bottom;
+        width = 1100 - margin.left - margin.right,
+        height = 600 - margin.top - margin.bottom;
 
       var mapColors = d3.scaleOrdinal()
         .domain(["north", "east", "south", "west"])
@@ -206,15 +207,15 @@
       });
     </script>
   </div>
-  <div id="barchart" style="width: 460px; height:750px; display: inline-flex;">
+  <div id="barchart" style="width: 350px; height:600px; display: inline-flex;">
     <script>
       //index = 0 is population density, index from 1-6 are age groups
       var index = 0;
 
       // set the dimensions and margins of the graph
       var margin1 = { top: 0, right: 0, bottom: 50, left: 50 },
-        width1 = 400 - margin1.left - margin1.right,
-        height1 = 750 - margin1.top - margin1.bottom;
+        width1 = 350 - margin1.left - margin1.right,
+        height1 = 600 - margin1.top - margin1.bottom;
 
       // append the svg object to the body of the page
       var svg1 = d3.select("#barchart")
@@ -300,7 +301,6 @@
     </div>
     <h2 style="display: inline-block; margin-bottom: 10px;">Western Europe</h2><br>
   </div>
-  </div>
   <div id="info" style="margin-left: 10px; margin-top: 20px;">
     <h4 style="display: inline;">*Country values are shown in Persons per square kilometre (p/km2)
     </h4><br>
@@ -309,8 +309,7 @@
     <h4 style="display: inline;">***Hovering over chart bars will show country values for each age
       group in percentages (%)
     </h4>
-
-
-
-
+  </div>
 </body>
+
+</html>

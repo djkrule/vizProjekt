@@ -1,0 +1,518 @@
+{
+    "children": [
+        {
+            "name": "Northern Europe",
+            "children": [
+                {
+                    "name": "DNK",
+                    "value": [
+                        128.5,
+                        16.5,
+                        12.6,
+                        31.7,
+                        19.6,
+                        15.5,
+                        4.1
+                    ],
+                    "fullName": "Denmark"
+                },
+                {
+                    "name": "LTU",
+                    "value": [
+                        44.6,
+                        15.5,
+                        10.5,
+                        32.7,
+                        21.9,
+                        14,
+                        5.8
+                    ],
+                    "fullName": "Lithuania"
+                },
+                {
+                    "name": "EST",
+                    "value": [
+                        30.5,
+                        16.4,
+                        9.5,
+                        34.9,
+                        19.4,
+                        15,
+                        4.1
+                    ],
+                    "fullName": "Estonia"
+                },
+                {
+                    "name": "LVA",
+                    "value": [
+                        30.2,
+                        15.9,
+                        9.2,
+                        33.8,
+                        20.9,
+                        14.7,
+                        5.6
+                    ],
+                    "fullName": "Latvia"
+                },
+                {
+                    "name": "SWE",
+                    "value": [
+                        25.2,
+                        17.8,
+                        11.3,
+                        32.9,
+                        18.1,
+                        14.8,
+                        5.1
+                    ],
+                    "fullName": "Sweden"
+                },
+                {
+                    "name": "FIN",
+                    "value": [
+                        18.2,
+                        16,
+                        9.5,
+                        31.2,
+                        19.4,
+                        14.1,
+                        5.5
+                    ],
+                    "fullName": "Finland"
+                },
+                {
+                    "name": "NOR",
+                    "value": [
+                        17.3,
+                        17.5,
+                        12.4,
+                        34.1,
+                        18.7,
+                        13,
+                        4.2
+                    ],
+                    "fullName": "Norway"
+                }
+            ]
+        },
+        {
+            "name": "Eastern Europe",
+            "children": [
+                {
+                    "name": "CZE",
+                    "value": [
+                        138.2,
+                        15.9,
+                        9.1,
+                        36.7,
+                        18.8,
+                        15.5,
+                        4.1
+                    ],
+                    "fullName": "Czech Republic"
+                },
+                {
+                    "name": "POL",
+                    "value": [
+                        123.6,
+                        15.4,
+                        10.3,
+                        37,
+                        19.7,
+                        13.3,
+                        4.4
+                    ],
+                    "fullName": "Poland"
+                },
+                {
+                    "name": "MDA",
+                    "value": [
+                        123,
+                        12.4,
+                        13.6,
+                        34.3,
+                        19.5,
+                        8.2,
+                        3.2
+                    ],
+                    "fullName": "Moldova"
+                },
+                {
+                    "name": "SVK",
+                    "value": [
+                        112,
+                        15.7,
+                        10.4,
+                        38.1,
+                        19.7,
+                        12.7,
+                        3.3
+                    ],
+                    "fullName": "Slovakia"
+                },
+                {
+                    "name": "HUN",
+                    "value": [
+                        107.1,
+                        14.5,
+                        10.7,
+                        35.8,
+                        19.6,
+                        14.9,
+                        4.4
+                    ],
+                    "fullName": "Hungary"
+                },
+                {
+                    "name": "SRB",
+                    "value": [
+                        90.5,
+                        14.3,
+                        10.5,
+                        33.8,
+                        20.9,
+                        15.7,
+                        4.7
+                    ],
+                    "fullName": "Serbia"
+                },
+                {
+                    "name": "ROU",
+                    "value": [
+                        82.7,
+                        15.7,
+                        10.6,
+                        35.6,
+                        19.7,
+                        13.9,
+                        4.7
+                    ],
+                    "fullName": "Romania"
+                },
+                {
+                    "name": "UKR",
+                    "value": [
+                        75,
+                        15.4,
+                        9.6,
+                        37.6,
+                        20.6,
+                        12.5,
+                        4.3
+                    ],
+                    "fullName": "Ukraine"
+                },
+                {
+                    "name": "BGR",
+                    "value": [
+                        63.4,
+                        14.4,
+                        8.9,
+                        35,
+                        20.4,
+                        16.5,
+                        4.8
+                    ],
+                    "fullName": "Bulgaria"
+                },
+                {
+                    "name": "BLR",
+                    "value": [
+                        47,
+                        16.9,
+                        9.9,
+                        36.6,
+                        21.3,
+                        11.3,
+                        3.9
+                    ],
+                    "fullName": "Belarus"
+                }
+            ]
+        },
+        {
+            "name": "Southern Europe",
+            "children": [
+                {
+                    "name": "SMR",
+                    "value": [
+                        566,
+                        14.74,
+                        11.64,
+                        40.12,
+                        22.28,
+                        12.5,
+                        8.2
+                    ],
+                    "fullName": "San Marino"
+                },
+                {
+                    "name": "ITA",
+                    "value": [
+                        201.5,
+                        13.2,
+                        9.8,
+                        32.3,
+                        21.9,
+                        15.7,
+                        7.2
+                    ],
+                    "fullName": "Italy"
+                },
+                {
+                    "name": "PRT",
+                    "value": [
+                        113,
+                        13.7,
+                        10.6,
+                        32.9,
+                        20.9,
+                        15.4,
+                        6.4
+                    ],
+                    "fullName": "Portugal"
+                },
+                {
+                    "name": "TUR",
+                    "value": [
+                        107.7,
+                        23.4,
+                        15.8,
+                        37,
+                        15,
+                        7,
+                        1.8
+                    ],
+                    "fullName": "Turkey"
+                },
+                {
+                    "name": "SLO",
+                    "value": [
+                        103.7,
+                        15.1,
+                        9.4,
+                        34.1,
+                        21.6,
+                        14.5,
+                        5.3
+                    ],
+                    "fullName": "Slovenia"
+                },
+                {
+                    "name": "ALB",
+                    "value": [
+                        99.1,
+                        17.2,
+                        15.5,
+                        33,
+                        20.2,
+                        11.4,
+                        2.7
+                    ],
+                    "fullName": "Albania"
+                },
+                {
+                    "name": "CYP",
+                    "value": [
+                        95.7,
+                        16.1,
+                        12.8,
+                        37.1,
+                        17.9,
+                        12.5,
+                        3.7
+                    ],
+                    "fullName": "Cyprus"
+                },
+                {
+                    "name": "ESP",
+                    "value": [
+                        93.8,
+                        14.8,
+                        9.8,
+                        35.3,
+                        20.7,
+                        13.3,
+                        6.1
+                    ],
+                    "fullName": "Spain"
+                },
+                {
+                    "name": "GRC",
+                    "value": [
+                        82.4,
+                        14.3,
+                        10.2,
+                        33.1,
+                        20.3,
+                        14.9,
+                        7.1
+                    ],
+                    "fullName": "Greece"
+                },
+                {
+                    "name": "CRO",
+                    "value": [
+                        72.8,
+                        14.4,
+                        10.9,
+                        32.5,
+                        21.6,
+                        15.2,
+                        5.3
+                    ],
+                    "fullName": "Croatia"
+                },
+                {
+                    "name": "MNE",
+                    "value": [
+                        63.4,
+                        18,
+                        13,
+                        34.2,
+                        19.8,
+                        11.9,
+                        3.3
+                    ],
+                    "fullName": "Montenegro"
+                },
+                {
+                    "name": "MKD",
+                    "value": [
+                        63.4,
+                        16.4,
+                        12.4,
+                        37.5,
+                        19.7,
+                        11.5,
+                        2.5
+                    ],
+                    "fullName": "North Macedonia"
+                }
+            ]
+        },
+        {
+            "name": "Western Europe",
+            "children": [
+                {
+                    "name": "NLD",
+                    "value": [
+                        507.3,
+                        15.9,
+                        12.3,
+                        31.8,
+                        20.9,
+                        14.6,
+                        4.6
+                    ],
+                    "fullName": "Netherlands"
+                },
+                {
+                    "name": "BEL",
+                    "value": [
+                        377.3,
+                        16.9,
+                        11.4,
+                        32.7,
+                        20.1,
+                        13.3,
+                        5.6
+                    ],
+                    "fullName": "Belgium"
+                },
+                {
+                    "name": "GBR",
+                    "value": [
+                        273.8,
+                        17.9,
+                        11.8,
+                        32.8,
+                        19.1,
+                        13.4,
+                        5
+                    ],
+                    "fullName": "United Kingdom"
+                },
+                {
+                    "name": "LIE",
+                    "value": [
+                        244.1,
+                        14.7,
+                        10.9,
+                        33.3,
+                        23.2,
+                        14.1,
+                        3.8
+                    ],
+                    "fullName": "Liechtenstein"
+                },
+                {
+                    "name": "LUX",
+                    "value": [
+                        239.8,
+                        16.1,
+                        11.6,
+                        38.2,
+                        19.8,
+                        10.4,
+                        4
+                    ],
+                    "fullName": "Luxembourg"
+                },
+                {
+                    "name": "GER",
+                    "value": [
+                        235.2,
+                        13.6,
+                        10.4,
+                        31.6,
+                        22.8,
+                        15.1,
+                        6.5
+                    ],
+                    "fullName": "Germany"
+                },
+                {
+                    "name": "AUT",
+                    "value": [
+                        107.6,
+                        14,
+                        10.9,
+                        34,
+                        21.7,
+                        13.8,
+                        5
+                    ],
+                    "fullName": "Austria"
+                },
+                {
+                    "name": "FRA",
+                    "value": [
+                        106.1,
+                        18,
+                        11.8,
+                        31,
+                        19.2,
+                        13.9,
+                        6.1
+                    ],
+                    "fullName": "France"
+                },
+                {
+                    "name": "IRL",
+                    "value": [
+                        71.9,
+                        20.5,
+                        12.6,
+                        35.6,
+                        17.2,
+                        10.8,
+                        3.3
+                    ],
+                    "fullName": "Ireland"
+                }
+            ]
+        }
+    ]
+}
