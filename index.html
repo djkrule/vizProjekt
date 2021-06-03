@@ -1,87 +1,128 @@
-<!-- Code from d3-graph-gallery.com -->
 <!DOCTYPE html>
 <meta charset="utf-8">
+<script src="//d3js.org/d3.v4.min.js"></script>
 
-<!-- Load d3.js -->
-<script src="https://d3js.org/d3.v4.js"></script>
-<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-<!-- Create a div where the graph will take place -->
+<style>
+  .node {
+    border: solid 1px black;
+    font: 14px sans-serif;
+    color: white;
+    overflow: hidden;
+    position: absolute;
+    text-indent: 2px;
+  }
+</style>
 
 <body>
-  <div id="my_dataviz" style="width: 1350px; height: 800px; display: inline-block;">
+  <div id="europeTreeMap" style="width: 1350px; height: 800px; display: inline-block;">
     <script>
-      // set the dimensions and margins of the graph
-      var margin = { top: 20, right: 10, bottom: 10, left: 10 },
+      var opacityNorth = d3.scaleLinear()
+        .domain([0, 60])
+        .range([.55, .9]);
+      var opacityEast = d3.scaleLinear()
+        .domain([0, 130])
+        .range([.55, .9]);
+      var opacityWest = d3.scaleLinear()
+        .domain([0, 220])
+        .range([.55, 1]);
+      var opacitySouth = d3.scaleLinear()
+        .domain([0, 400])
+        .range([.55, 1]);
+
+      var opacityAge14 = d3.scaleLinear()
+        .domain([13.2, 24])
+        .range([.65, 1]);
+      var opacityAge24 = d3.scaleLinear()
+        .domain([8.9, 18])
+        .range([.75, 1]);
+      var opacityAge49 = d3.scaleLinear()
+        .domain([31, 40])
+        .range([.65, 1]);
+      var opacityAge64 = d3.scaleLinear()
+        .domain([14.1, 24])
+        .range([.45, 1]);
+      var opacityAge79 = d3.scaleLinear()
+        .domain([5.3, 17])
+        .range([.45, 1]);
+      var opacityAge80 = d3.scaleLinear()
+        .domain([1.5, 7])
+        .range([.50, 1]);
+
+      function getOpacity(d) {
+        if (d.parent.data.name == "Northern Europe") {
+          return opacityNorth(d.data.value[index]);
+        }
+        if (d.parent.data.name == "Eastern Europe") {
+          return opacityEast(d.data.value[index]);
+        }
+        if (d.parent.data.name == "Southern Europe") {
+          return opacityWest(d.data.value[index]);
+        }
+        if (d.parent.data.name == "Western Europe") {
+          return opacitySouth(d.data.value[index]);
+        }
+      }
+
+      function getAgeOpacity(d) {
+        if (index == 1)
+          return opacityAge14(d.data.value[index]);
+        if (index == 2)
+          return opacityAge24(d.data.value[index]);
+        if (index == 3)
+          return opacityAge49(d.data.value[index]);
+        if (index == 4)
+          return opacityAge64(d.data.value[index]);
+        if (index == 5)
+          return opacityAge79(d.data.value[index]);
+        if (index == 6)
+          return opacityAge80(d.data.value[index]);
+      }
+
+      'use strict';
+
+      const margin = { top: 40, right: 10, bottom: 10, left: 10 },
         width = 1350 - margin.left - margin.right,
         height = 800 - margin.top - margin.bottom;
 
-      // append the svg object to the body of the page
-      // NAPRAVITI UPDATE S OBZIROM NA KOJI SE STUPAC STISNE
-      //pogledaj na d3.js graphs
-      var svg = d3.select("#my_dataviz")
-        .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform",
-          "translate(" + margin.left + "," + margin.top + ")");
+      var color = d3.scaleOrdinal()
+        .domain(["north", "east", "south", "west"])
+        .range(["#016FB9", "#D91414", "#E57A08", "#198A46"]);
 
-      // read json data
-      d3.json("euroPopulation.json", function (data) {
-        // Give the data to this cluster layout:
-        var root = d3.hierarchy(data).sum(function (d) { return d.value }) // Here the size of each leave is given in the 'value' field in input data
+      const treemap = d3.treemap().size([width, height]);
 
-        // Then d3.treemap computes the position of each element of the hierarchy
-        d3.treemap()
-          .size([width, height])
-          .paddingTop(30)
-          .paddingRight(5)
-          (root);
+      var div = d3.select("#europeTreeMap").append("div")
+        .style("position", "relative")
+        .style("width", (width + margin.left + margin.right) + "px")
+        .style("height", (height + margin.top + margin.bottom) + "px")
+        .style("left", margin.left + "px")
+        .style("top", margin.top + "px");
 
-        //Colors
-        var color = d3.scaleOrdinal()
-          .domain(["north", "east", "south", "west"])
-          .range(["#016FB9", "#D91414", "#E57A08", "#198A46"]);
+      d3.json("euroPopulation.json", function (error, data) {
+        if (error) throw error;
 
-        //Opacity
-        var opacity1 = d3.scaleLinear()
-          .domain([0, 60])
-          .range([.3, .9]);
-        var opacity2 = d3.scaleLinear()
-          .domain([0, 130])
-          .range([.3, .9]);
-        var opacity3 = d3.scaleLinear()
-          .domain([0, 220])
-          .range([.3, 1]);
-        var opacity4 = d3.scaleLinear()
-          .domain([0, 400])
-          .range([.3, 1]);
-        // use this information to add rectangles:
-        svg
-          .selectAll("rect")
-          .data(root.leaves())
-          .enter()
-          .append("rect")
-          .attr('x', function (d) { return d.x0; })
-          .attr('y', function (d) { return d.y0; })
-          .attr('width', function (d) { return d.x1 - d.x0; })
-          .attr('height', function (d) { return d.y1 - d.y0; })
-          .style("stroke", "black")
-          .style("fill", function (d) { return color(d.parent.data.name) })
+        var root = d3.hierarchy(data).sum(function (d) {
+          if (d.value === undefined) {
+            return 0;
+          }
+          return d.value[0];
+        })
+
+        const tree = treemap(root);
+
+        var node = div.datum(root).selectAll(".node")
+          .data(tree.leaves())
+          .enter().append("div")
+          .attr("class", "node")
+          .style("left", (d) => d.x0 + "px")
+          .style("top", (d) => d.y0 + "px")
+          .style("width", (d) => Math.max(0, d.x1 - d.x0 - 1) + "px")
+          .style("height", (d) => Math.max(0, d.y1 - d.y0 - 1) + "px")
+          .style("background", (d) => color(d.parent.data.name))
           .style("opacity", function (d) {
-            if (d.parent.data.name == "Northern Europe") {
-              return opacity1(d.data.value);
-            }
-            if (d.parent.data.name == "Eastern Europe") {
-              return opacity2(d.data.value);
-            }
-            if (d.parent.data.name == "Southern Europe") {
-              return opacity3(d.data.value);
-            }
-            if (d.parent.data.name == "Western Europe") {
-              return opacity4(d.data.value);
-            }
+            console.log(d.parent.data.name)
+            return getOpacity(d)
           })
+          .text((d) => d.data.name + " " + d.data.value[index])
           .on("click", function (d) {
             console.log(d.data["fullName"]);
             update(d.data["fullName"])
@@ -93,61 +134,95 @@
           .on("mouseout", function (d) {
             d3.select(this).style("fill", function (d) { return color(d.parent.data.name) })
               .style("opacity", function (d) {
-                if (d.parent.data.name == "Northern Europe") {
-                  return opacity1(d.data.value);
-                }
-                if (d.parent.data.name == "Eastern Europe") {
-                  return opacity2(d.data.value);
-                }
-                if (d.parent.data.name == "Southern Europe") {
-                  return opacity3(d.data.value);
-                }
-                if (d.parent.data.name == "Western Europe") {
-                  return opacity4(d.data.value);
-                }
-              });
+                console.log(d.parent.data.name)
+                return getOpacity(d)
+              })
           });
 
-        // title for short names -> ISO-3
-        svg
-          .selectAll("text")
-          .data(root.leaves())
-          .enter()
-          .append("text")
-          .attr("x", function (d) { return d.x0 + 5 })
-          .attr("y", function (d) { return d.y0 + 20 })
-          .text(function (d) { return d.data.name })
-          .attr("font-size", "15px")
-          .attr("fill", "white");
+        svg1.on("mouseover", function change() {
+          const newValue =
+            (d) => {
+              if (d.value === undefined) {
+                return 0;
+              }
+              return d.value[index];
+            }
 
-        // country-value -> population-density
-        svg
-          .selectAll("vals")
-          .data(root.leaves())
-          .enter()
-          .append("text")
-          .attr("x", function (d) { return d.x0 + 5 })
-          .attr("y", function (d) { return d.y0 + 35 })
-          .text(function (d) { return d.data.value })
-          .attr("font-size", "11px")
-          .attr("fill", "white");
 
-        // europe titles - North,east...
-        svg
-          .selectAll("titles")
-          .data(root.descendants().filter(function (d) { return d.depth == 1 }))
-          .enter()
-          .append("text")
-          .attr("x", function (d) { return d.x0 })
-          .attr("y", function (d) { return d.y0 + 22 })
-          .text(function (d) { return d.data.name })
-          .attr("font-size", "25px")
-          .attr("fill", function (d) { return color(d.data.name) });
+          const newRoot = d3.hierarchy(data, (d) => d.children)
+            .sum(newValue);
+
+          node.data(treemap(newRoot).leaves())
+            .transition()
+            .duration(1500)
+            .style("left", (d) => d.x0 + "px")
+            .style("top", (d) => d.y0 + "px")
+            .style("width", (d) => Math.max(0, d.x1 - d.x0 - 1) + "px")
+            .style("height", (d) => Math.max(0, d.y1 - d.y0 - 1) + "px")
+            .style("opacity", function (d) {
+              console.log(d.parent.data.name)
+              return getAgeOpacity(d)
+            })
+            .text((d) => d.data.name + " " + d.data.value[index])
+        });
+        svg1.on("mouseout", function change() {
+          const newValue =
+            (d) => {
+              if (d.value === undefined) {
+                return 0;
+              }
+              return d.value[0];
+            }
+
+
+          const newRoot = d3.hierarchy(data, (d) => d.children)
+            .sum(newValue);
+
+          node.data(treemap(newRoot).leaves())
+            .transition()
+            .duration(1500)
+            .style("left", (d) => d.x0 + "px")
+            .style("top", (d) => d.y0 + "px")
+            .style("width", (d) => Math.max(0, d.x1 - d.x0 - 1) + "px")
+            .style("height", (d) => Math.max(0, d.y1 - d.y0 - 1) + "px")
+            .style("opacity", function (d) {
+              console.log(d.parent.data.name)
+              return getOpacity(d)
+            })
+        });
       });
     </script>
   </div>
-  <div id="my_dataviz2" style="width: 460px; height:800px;display: inline-block;">
+  <div id="legend">
     <script>
+      //Create SVG element
+      //4 kruga pored njih imena podjela i tjt
+      var svg2 = d3.select("#legend")
+        .append("svg")
+        .attr("width", 1000)
+        .attr("height", 300);
+      //Create and append rectangle element
+      svg2.append("circle")
+        .style("fill", color("west"))
+        .attr("r", 40)
+        .attr("cx", 20)
+        .attr("cy", 20);
+      svg2.append("circle")
+        .style("fill", color("south"))
+        .attr("r", 40)
+        .attr("cx", 20)
+        .attr("cy", 20);
+      svg2.append("circle")
+        .style("fill", color("north"))
+        .attr("r", 40)
+        .attr("cx", 10)
+        .attr("cy", 10);
+    </script>
+  </div>
+  <div id="barchart" style="width: 460px; height:800px;">
+    <script>
+      //index = 0 is population density, index from 1-6 are age groups
+      var index = 0;
 
       // set the dimensions and margins of the graph
       var margin1 = { top: 200, right: 0, bottom: 100, left: 20 },
@@ -155,8 +230,9 @@
         height1 = 800 - margin1.top - margin1.bottom;
 
       // append the svg object to the body of the page
-      var svg1 = d3.select("#my_dataviz2")
+      var svg1 = d3.select("#barchart")
         .append("svg")
+        .attr("id", "chart")
         .attr("width", width1 + margin1.left + margin1.right)
         .attr("height", height1 + margin1.top + margin1.bottom)
         .append("g")
@@ -176,15 +252,12 @@
       var yAxis = svg1.append("g")
         .attr("class", "myYaxis")
 
-
       // A function that create / update the plot for a given variable:
       function update(selectedVar) {
-
         // Parse the Data
         d3.csv("country.txt", function (data) {
           // X axis
           x.domain(data.map(function (d) {
-            console.log(d);
             return d.group;
           }))
           xAxis.transition().duration(1000).call(d3.axisBottom(x))
@@ -196,24 +269,29 @@
           // variable u: map data to existing bars
           var u = svg1.selectAll("rect")
             .data(data)
-
           // update bars
           u
             .enter()
             .append("rect")
-            .on("click", function (d) {
-              console.log(d.group)
-
-            })
             .merge(u)
+            .attr("id", function (d, i) { return "stupac" + i })
+            .on("mouseover", function (d, i) {
+              index = i + 1;
+              console.log(d.group)
+              console.log("novi index je: " + index)
+            }).on("mouseout", function (d) { index = 0 })
             .transition()
             .duration(1000)
             .attr("x", function (d) { return x(d.group); })
             .attr("y", function (d) { return y(d[selectedVar]); })
             .attr("width", x.bandwidth())
             .attr("height", function (d) { return height1 - y(d[selectedVar]); })
-            .style("fill", function (d) {
-              return "#016FB9";
+            .style("fill", function (d, i) {
+              var color1 = d3.scaleOrdinal()
+                .domain([0, 1, 2, 3, 4, 5])
+                .range(["#c6f2fa", "#91e5f6", "#84d2f6", "#59a5d8", "#386fa4", "#133c55"]);
+              return color1(i);
+
             })
         })
       }
@@ -223,4 +301,5 @@
 
     </script>
   </div>
+
 </body>
