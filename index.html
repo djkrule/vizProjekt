@@ -33,7 +33,7 @@
   </div>
   <div id="europeTreeMap" style="width: 1100px; height: 600px; display: inline-block;">
     <script>
-      //promjeni visinu charta jer se ne vidi u cijelosti
+
       var opacityNorth = d3.scaleLinear()
         .domain([0, 60])
         .range([.55, .9]);
@@ -139,9 +139,11 @@
           .style("opacity", function (d) {
             return getCountryOpacity(d)
           })
-          .text((d) => d.data.name + " " + d.data.value[index])
+          .text((d) => d.data.name + " " + d.data.value[index] + " p/km2")
           .on("click", function (d) {
-            update(d.data["fullName"])
+            var newBarName = d.data["fullName"];
+            document.getElementById("barName").innerHTML = newBarName;
+            update(newBarName);
           })
           .on("mouseover", function (d) {
             d3.select(this)
@@ -177,8 +179,14 @@
             .style("opacity", function (d) {
               return getAgeOpacity(d)
             })
-            .text((d) => d.data.name + " " + d.data.value[index])
+            .text((d) => {
+              if (index == 0)
+                return d.data.name + " " + d.data.value[index] + " p/km2";
+              else
+                return d.data.name + " " + d.data.value[index] + "%";
+            })
         });
+
         svg1.on("mouseout", function change() {
           const newValue =
             (d) => {
@@ -202,12 +210,19 @@
             .style("opacity", function (d) {
               return getCountryOpacity(d)
             })
-            .text((d) => d.data.name + " " + d.data.value[index])
+            .text((d) => {
+              if (index == 0)
+                return d.data.name + " " + d.data.value[index] + " p/km2";
+              else
+                return d.data.name + " " + d.data.value[index] + "%";
+            })
         });
       });
     </script>
   </div>
-  <div id="barchart" style="width: 350px; height:600px; display: inline-flex;">
+  <div id="barchart" style="width: 350px; height:600px; display: inline-block;">
+    <h2 style="display: inline-block; width:350px; padding-left: 10px;">Age groups:</h2>
+    <h2 id="barName" style="display: inline-block; padding:0% 40%; width:350px;">Europe</h2>
     <script>
       //index = 0 is population density, index from 1-6 are age groups
       var index = 0;
@@ -215,7 +230,7 @@
       // set the dimensions and margins of the graph
       var margin1 = { top: 0, right: 0, bottom: 50, left: 50 },
         width1 = 350 - margin1.left - margin1.right,
-        height1 = 600 - margin1.top - margin1.bottom;
+        height1 = 550 - margin1.top - margin1.bottom;
 
       // append the svg object to the body of the page
       var svg1 = d3.select("#barchart")
@@ -302,7 +317,7 @@
     <h2 style="display: inline-block; margin-bottom: 10px;">Western Europe</h2><br>
   </div>
   <div id="info" style="margin-left: 10px; margin-top: 20px;">
-    <h4 style="display: inline;">*Country values are shown in Persons per square kilometre (p/km2)
+    <h4 style="display: inline;">*Country values are shown in People per square kilometre (p/km2)
     </h4><br>
     <h4 style="display: inline;">**By clicking on country, barchart will refresh with that country age groups
     </h4><br>
